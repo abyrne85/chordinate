@@ -81,6 +81,7 @@ function getChord(key,color){
 		}
 	}
 	addTuningNotes();
+	showButtons();
 })();
 
 function populateFrets(string,key){
@@ -124,7 +125,6 @@ function populateFrets(string,key){
 
 
 function addTuningNotes(){
-	//$('.fretboard ul select').empty();
 	var option='';
 	for(var i=0;i<12;i++){
 		 $('.fretboard ul select').append('<option value="'+ notes[i] + '">' + notes[i] + '</option>');
@@ -142,8 +142,27 @@ $('#fretboard input').change(function(event){
 	}
 
 	populateFrets(string, key);
-
-
-
 	
 });
+
+function showButtons(){
+	//major chords
+	for(var i=0;i<notes.length;i++){
+		$('#major').append('<button class="btn major" id="'+notes[i]+' major">'+notes[i]+'</button>');
+	} 
+	for(var i=0;i<notes.length;i++){
+		$('#minor').append('<button class="btn minor" id="'+notes[i]+' minor">'+notes[i]+'m</button>');
+	} 
+}
+var key
+$('#buttons button').click(function(){
+	key = $(this).attr('id').split(' ')[0];
+	var scale = $(this).attr('id').split(' ')[1];
+
+	getChord(getScale(key, scale));
+	console.log(getChord(getScale(key, scale)));
+
+});
+
+
+

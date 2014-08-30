@@ -5,11 +5,10 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/font
 // endbower
 
 .container{
-    width:1080px;
+    width:1000px;
 }
 
 .fretboard{
-	width:1000px;
 	background:#E5E5E0;
 	margin:20px auto;
 	height:300px;
@@ -30,4 +29,14 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/font
 	}
 }
 
+.buttons {
+	margin:20px auto;
+	button{
+		width:60px;
+		height:50px;
+		padding:0px 10px;
+		margin:5px 5px;
+		
+	}
+}
 
