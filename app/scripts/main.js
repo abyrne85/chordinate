@@ -1,5 +1,5 @@
 var notes = ["A","A#","B","C","C#","D","D#","E","F","F#","G","G#"];
-
+var currentChord = [];
 function getScale(key, voice){
 	var major = [0,2,4,5,7,9,11];
 	var minor = [0,2,3,5,7,8,10];
@@ -112,7 +112,7 @@ function populateFrets(string,key){
 		currentString = $('.E-string');
 		break;
 		default:
-		alert('which string foo?');
+		window.alert('asshole');
 	}
 
 	currentString.empty();
@@ -124,6 +124,7 @@ function populateFrets(string,key){
 }
 
 
+//Tuning Strings
 function addTuningNotes(){
 	var option='';
 	for(var i=0;i<12;i++){
@@ -131,6 +132,7 @@ function addTuningNotes(){
 	}
 }
 
+//Retuning
 $('#fretboard input').change(function(event){
 
 	var este = $(this);
@@ -142,27 +144,70 @@ $('#fretboard input').change(function(event){
 	}
 
 	populateFrets(string, key);
+	if(currentChord.length==2){
+		showChord(currentChord[0],currentChord[1]);
+	}
 	
 });
 
+
+//Buttons Panel
 function showButtons(){
 	//major chords
 	for(var i=0;i<notes.length;i++){
-		$('#major').append('<button class="btn major" id="'+notes[i]+' major">'+notes[i]+'</button>');
+		$('#major').append('<button class="btn major btn-default" id="'+notes[i]+' major">'+notes[i]+'</button>');
 	} 
 	for(var i=0;i<notes.length;i++){
-		$('#minor').append('<button class="btn minor" id="'+notes[i]+' minor">'+notes[i]+'m</button>');
+		$('#minor').append('<button class="btn minor btn-default" id="'+notes[i]+' minor">'+notes[i]+'m</button>');
 	} 
 }
-var key
 $('#buttons button').click(function(){
-	key = $(this).attr('id').split(' ')[0];
+	var key = $(this).attr('id').split(' ')[0];
 	var scale = $(this).attr('id').split(' ')[1];
 
-	getChord(getScale(key, scale));
-	console.log(getChord(getScale(key, scale)));
+	showChord(key, scale);
+
+
 
 });
+
+function showChord(key, scale){
+	currentChord=[key, scale];
+	getChord(getScale(key, scale));
+	chord = getChord(getScale(key, scale));
+	showTriad(chord);	
+}
+
+//Show Chords on Fretboard
+function showTriad(chord){
+	var frets = $('#fretboard li');
+
+	for(var i=0;i<frets.length;i++){
+
+
+		var currentFret = frets[i];
+		currentFret.removeAttribute('class');
+
+		var fret = frets[i].innerHTML.toUpperCase();
+		var interval;
+		if(fret==chord[0]){
+			currentFret.setAttribute('class','first');
+		}
+		if(fret==chord[1]){
+			currentFret.setAttribute('class','third');
+		}
+		if(fret==chord[2]){
+			currentFret.setAttribute('class','fifth');
+		}
+
+
+	}
+
+
+}
+
+
+
 
 
 
