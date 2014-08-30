@@ -1,5 +1,8 @@
 var notes = ["A","A#","B","C","C#","D","D#","E","F","F#","G","G#"];
 var currentChord = [];
+var currentScale = [];
+var currentTriad = [];
+
 function getScale(key, voice){
 	var major = [0,2,4,5,7,9,11];
 	var minor = [0,2,3,5,7,8,10];
@@ -33,7 +36,7 @@ function getScale(key, voice){
 		default:
 		return orderedNotes;
 	}
-
+	currentScale = scale;
 	return scale;
 }
 
@@ -161,9 +164,11 @@ function showButtons(){
 		$('#minor').append('<button class="btn minor btn-default" id="'+notes[i]+' minor">'+notes[i]+'m</button>');
 	} 
 }
+
+var key, scale;
 $('#buttons button').click(function(){
-	var key = $(this).attr('id').split(' ')[0];
-	var scale = $(this).attr('id').split(' ')[1];
+	key = $(this).attr('id').split(' ')[0];
+	scale = $(this).attr('id').split(' ')[1];
 
 	showChord(key, scale);
 
@@ -172,15 +177,19 @@ $('#buttons button').click(function(){
 });
 
 function showChord(key, scale){
+	var extra; 
 	currentChord=[key, scale];
 	getChord(getScale(key, scale));
 	chord = getChord(getScale(key, scale));
-	showTriad(chord);	
+
+	colorFrets(chord, extra);	
 }
 
 //Show Chords on Fretboard
-function showTriad(chord){
+function colorFrets(chord, extra){
+	currentTriad = chord;
 	var frets = $('#fretboard li');
+	var extra;
 
 	for(var i=0;i<frets.length;i++){
 
@@ -188,7 +197,7 @@ function showTriad(chord){
 		var currentFret = frets[i];
 		currentFret.removeAttribute('class');
 
-		var fret = frets[i].innerHTML.toUpperCase();
+		var fret = frets[i].innerHTML;
 		var interval;
 		if(fret==chord[0]){
 			currentFret.setAttribute('class','first');
@@ -199,13 +208,25 @@ function showTriad(chord){
 		if(fret==chord[2]){
 			currentFret.setAttribute('class','fifth');
 		}
-
-
 	}
-
-
+	$('.checkbox').show(200);
 }
 
+var checkbox;
+$('#buttons input').change(function(){
+	
+	if($(this).prop('checked')){
+		switch($(this).attr('id')){
+		case 'seventh':
+		colorFrets(currentTriad, $(this).attr('id'));
+		break;
+		case 'ninth':
+		colorFrets(currentTriad, $(this).attr('id'));
+		console.log(currentTriad, $(this).attr('id'))
+		break;
+		}
+	}
+});
 
 
 
