@@ -1,0 +1,33 @@
+$icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/";
+
+// bower:scss
+@import "../bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap.scss";
+// endbower
+
+.container{
+    width:1080px;
+}
+
+.fretboard{
+	width:1000px;
+	background:#E5E5E0;
+	margin:20px auto;
+	height:300px;
+	padding-top: 20px;
+	 ul{
+		list-style: none;
+		margin-left:-40px;
+		padding-bottom:10px;
+	}
+	 li{
+		padding-left:66px;
+		display:inline;
+
+	}
+	input{
+		position:absolute;
+		width:30px;
+	}
+}
+
+
