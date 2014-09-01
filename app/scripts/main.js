@@ -209,24 +209,24 @@ function colorFrets(chord, extra){
 			currentFret.setAttribute('class','fifth');
 		}
 	}
-	$('.checkbox').show(200);
+	//$('.checkbox').show(200);
 }
 
-var checkbox;
-$('#buttons input').change(function(){
+// var checkbox;
+// $('#buttons input').change(function(){
 	
-	if($(this).prop('checked')){
-		switch($(this).attr('id')){
-		case 'seventh':
-		colorFrets(currentTriad, $(this).attr('id'));
-		break;
-		case 'ninth':
-		colorFrets(currentTriad, $(this).attr('id'));
-		console.log(currentTriad, $(this).attr('id'))
-		break;
-		}
-	}
-});
+// 	if($(this).prop('checked')){
+// 		switch($(this).attr('id')){
+// 		case 'seventh':
+// 		colorFrets(currentTriad, $(this).attr('id'));
+// 		break;
+// 		case 'ninth':
+// 		colorFrets(currentTriad, $(this).attr('id'));
+// 		console.log(currentTriad, $(this).attr('id'))
+// 		break;
+// 		}
+// 	}
+// });
 
 
 
