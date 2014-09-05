@@ -1,24 +1,24 @@
 
-"use strict";
+'use strict';
 
-var notesArray = ["A","A#","B","C","C#","D","D#","E","F","F#","G","G#"];
-var buttons = new Buttons();
+var notesArray = ['A','A#','B','C','C#','D','D#','E','F','F#','G','G#'];
 var notes = new Notes();
+var buttons = new Buttons();
+
 var fretboard;
+var currentChord =[];
+var currentTriad=[];
+var currentScale = [];
+
 
 function Notes(){
-	this.notesArray = ["A","A#","B","C","C#","D","D#","E","F","F#","G","G#"];
-	this.currentChord = [];
-	this.currentScale = [];
-	this.currentTriad = [];
-
-
+	
 
 	$(function(){
 		var standard = ['e','B','G','D','A','E'];
 
 		for(var i=0;i<6;i++){
-			if(standard[i]=='e'){
+			if(standard[i]==='e'){
 				fretboard.populateFrets(standard[i],'E');
 			}else{
 			fretboard.populateFrets(standard[i],standard[i]);
@@ -26,23 +26,19 @@ function Notes(){
 		}
 	});
 
-
-
-
-
 	this.getScale = function (key, voice){
 		var major = [0,2,4,5,7,9,11];
 		var minor = [0,2,3,5,7,8,10];
 		var scale=[];
 		var orderedNotes=[];
-		var key = notesArray.indexOf(key);
+		this.key = notesArray.indexOf(key);
 
 
-		for(var i=key; i<notesArray.length;i++){
+		for(var i=this.key; i<notesArray.length;i++){
 			orderedNotes.push(notesArray[i]);
 		}
 
-		for (var i=0;i<key;i++){
+		for (var i=0;i<this.key;i++){
 			orderedNotes.push(notesArray[i]);
 		}
 
@@ -62,7 +58,7 @@ function Notes(){
 			default:
 			return orderedNotes;
 		}
-		this.currentScale = scale;
+		currentScale = scale;
 		return scale;
 	},
 
@@ -88,7 +84,6 @@ function Notes(){
 			break;
 
 			default:
-			console.log('default');
 			return chord;
 
 		}
@@ -97,99 +92,90 @@ function Notes(){
 	};
 
 
-	fretboard = new Fretboard(this.currentChord);
+	fretboard = new Fretboard(currentChord);
 	fretboard.addTuningNotes();
-	buttons.showButtons();
 	return this;
 }
 
 
 
 
-	function Fretboard(currentChord){
+function Fretboard(currentChord){
 
 
-		this.populateFrets = function(string,key){
-			
-			this.currentChord = currentChord;
-			console.log(currentChord);
+	this.populateFrets = function(string,key){
+		
+		this.currentChord = currentChord;
+		this.orderedNotes=[];
+		this.key = key;
+		this.frets = notes.getScale(key);
+		this.string = string;
+		var currentString;
 
-			this.orderedNotes=[];
-			this.key = key;
-			this.frets = notes.getScale(key);
-			this.string = string;
-			var currentString;
-
-			switch(string){
-				case 'e':
-				currentString = $('.e-string');
-				break;
-				case 'B':
-				currentString = $('.B-string');
-				break;
-				case 'G':
-				currentString = $('.G-string');
-				break;
-				case 'D':
-				currentString = $('.D-string');
-				break;
-				case 'A':
-				currentString = $('.A-string');
-				break;
-				case 'E':
-				currentString = $('.E-string');
-				break;
-				default:
-				console.log('asshole');
-			}
-
-			currentString.empty();
-
-			for(var i=0;i<this.frets.length;i++){
-				currentString.append('<li>'+this.frets[i]+'</li>');
-			}
-			//addTuningNotes();
+		switch(string){
+			case 'e':
+			currentString = $('.e-string');
+			break;
+			case 'B':
+			currentString = $('.B-string');
+			break;
+			case 'G':
+			currentString = $('.G-string');
+			break;
+			case 'D':
+			currentString = $('.D-string');
+			break;
+			case 'A':
+			currentString = $('.A-string');
+			break;
+			case 'E':
+			currentString = $('.E-string');
+			break;
+			default:
 		}
 
-		//Tuning Strings
-		this.addTuningNotes = function(){
-			var option='';
-			for(var i=0;i<12;i++){
-				 $('.fretboard ul select').append('<option value="'+ notesArray[i] + '">' + notesArray[i] + '</option>');
-			}
-		}		
+		currentString.empty();
+
+		for(var i=0;i<this.frets.length;i++){
+			currentString.append('<li>'+this.frets[i]+'</li>');
+		}
+		//addTuningNotes();
+	};
+
+	//Tuning Strings
+	this.addTuningNotes = function(){
+		for(var i=0;i<12;i++){
+			 $('.fretboard ul select').append('<option value="'+ notesArray[i] + '">' + notesArray[i] + '</option>');
+		}
+	};	
 }
 
 
 //Events
 //Retuning
-$('#fretboard input').change(function(event){
+$('#fretboard input').change(function(){
 
 	var este = $(this);
 	var string = este.attr('id').split('-')[0];
 	var key = este.val();
 
 
-
-	if(notes.notesArray.indexOf(este.val())<0){
+	if(notesArray.indexOf(este.val())<0){
 		console.log('you stupid');
 	}
 
-	fretbooard.populateFrets(string, key);
+	fretboard.populateFrets(string, key);
 
-	// if(this.currentChord.length==2){
-	// 	//showChord(this.currentChord[0],this.currentChord[1]);
-	// }	
-
+	if(currentChord.length===2){
+		buttons.showChord(currentChord[0],currentChord[1]);
+	}	
 
 });
 
 
 
 function Buttons(){
-
-	//Buttons Panel
-	
+var extra;
 
 	this.showButtons = function(){
 	//major chords
@@ -199,66 +185,85 @@ function Buttons(){
 		for(var i=0;i<notesArray.length;i++){
 			$('#minor').append('<button class="btn minor btn-default" id="'+notesArray[i]+' minor">'+notesArray[i]+'m</button>');
 		} 
-	}
+	};
+	this.showButtons();
 
-	var key, scale;
-	$('#buttons button').click(function(){
-		key = $(this).attr('id').split(' ')[0];
-		scale = $(this).attr('id').split(' ')[1];
-		showChord(key, scale);
-	});
 
-	function showChord(key, scale){
-		var extra; 
+	this.showChord=function(key, scale){
+		
 		currentChord=[key, scale];
-		getChord(getScale(key, scale));
-		chord = getChord(getScale(key, scale));
-		colorFrets(chord, extra);	
-	}
+		notes.getChord(notes.getScale(key, scale));
+		var chord = notes.getChord(notes.getScale(key, scale));
+		this.colorFrets(chord, extra);	
+	};
 
 	//Show Chords on Fretboard
-	function colorFrets(chord, extra){
-		currentTriad = chord;
+	this.colorFrets=function(chord, extra){
 		var frets = $('#fretboard li');
-		var extra;
-
+		
 		for(var i=0;i<frets.length;i++){
-
 
 			var currentFret = frets[i];
 			currentFret.removeAttribute('class');
 
 			var fret = frets[i].innerHTML;
-			var interval;
-			if(fret==chord[0]){
+
+			if(fret===chord[0]){
 				currentFret.setAttribute('class','first');
 			}
-			if(fret==chord[1]){
+			if(fret===chord[1]){
 				currentFret.setAttribute('class','third');
 			}
-			if(fret==chord[2]){
+			if(fret===chord[2]){
 				currentFret.setAttribute('class','fifth');
 			}
 		}
-		//$('.checkbox').show(200);
+
+		if(extra !== undefined){
+			showExtensions(extra);
+		}
+
+
+		$('.checkbox').show(200);
+		currentTriad = [chord[0],chord[1],chord[2]];
+	};
+
+	function showExtensions(extra){
+		switch(extra){
+			case 'seventh':
+			console.log(currentScale[6]);
+			break;			
+
+			case 'ninth':
+			console.log(currentScale[1]);
+			break;
+
+			default://do nothing
+
+		}
 	}
+
 }
 
-// var checkbox;
-// $('#buttons input').change(function(){
-	
-// 	if($(this).prop('checked')){
-// 		switch($(this).attr('id')){
-// 		case 'seventh':
-// 		colorFrets(currentTriad, $(this).attr('id'));
-// 		break;
-// 		case 'ninth':
-// 		colorFrets(currentTriad, $(this).attr('id'));
-// 		console.log(currentTriad, $(this).attr('id'))
-// 		break;
-// 		}
-// 	}
-// });
+$('#buttons button').click(function(){
+	var key = $(this).attr('id').split(' ')[0];
+	var scale = $(this).attr('id').split(' ')[1];
+	buttons.showChord(key, scale);
+});
+
+
+$('#buttons input').change(function(){	
+	if($(this).prop('checked')){
+		switch($(this).attr('id')){
+		case 'seventh':
+		buttons.colorFrets(currentTriad, $(this).attr('id'));
+		break;
+		case 'ninth':
+		buttons.colorFrets(currentTriad, $(this).attr('id'));
+		break;
+		}
+	}
+});
 
 
 
