@@ -25,13 +25,16 @@ $seventh: #aaaaff;
 	height:270px;
 	 ul{
 		margin-left:-30px;
-		padding-bottom:10px;
+		margin-top:5px;
+		padding-bottom:6px;
+
 	}
 	 li{
 		padding:4px 39px;
 		display:inline-block;
 		list-style: none;
 		width:30px;
+		border-bottom:1px solid grey;
 
 	}
 	input{
@@ -46,22 +49,22 @@ $seventh: #aaaaff;
 		background-color: $first;
 	}
 	.second{
-		background-color: $second;
+		/*background-color: $second;*/
 	}
 	.third{
 		background-color: $third;
 	}
 	.fourth{
-		background-color: $fourth;
+		/*background-color: $fourth;*/
 	}
 	.fifth{
 		background-color: $fifth;
 	}
 	.sixth{
-		background-color: $sixth;
+		/*background-color: $sixth;*/
 	}
 	.seventh{
-		background-color: $seventh;
+		/*background-color: $seventh;*/
 
 	}
 }

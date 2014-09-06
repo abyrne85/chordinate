@@ -7,7 +7,6 @@ var buttons = new Buttons();
 
 var fretboard;
 var currentChord =[];
-var currentTriad=[];
 var currentScale = [];
 
 
@@ -32,7 +31,6 @@ function Notes(){
 		var scale=[];
 		var orderedNotes=[];
 		this.key = notesArray.indexOf(key);
-
 
 		for(var i=this.key; i<notesArray.length;i++){
 			orderedNotes.push(notesArray[i]);
@@ -69,12 +67,11 @@ function Notes(){
 		for(var i=0;i<triad.length;i++){
 			chord.push(key[triad[i]-1]);
 		}
-		
+
 		return chord;
 	};
 
-
-	fretboard = new Fretboard(currentChord);
+	fretboard = new Fretboard();
 	fretboard.addTuningNotes();
 	return this;
 }
@@ -82,12 +79,11 @@ function Notes(){
 
 
 
-function Fretboard(currentChord){
+function Fretboard(){
 
 
 	this.populateFrets = function(string,key){
 		
-		this.currentChord = currentChord;
 		this.orderedNotes=[];
 		this.key = key;
 		this.frets = notes.getScale(key);
@@ -137,7 +133,6 @@ function Fretboard(currentChord){
 
 
 function Buttons(){
-var extra;
 
 	this.showButtons = function(){
 	//major chords
@@ -155,21 +150,11 @@ var extra;
 		
 		currentChord=[key, scale];
 		notes.getChord(notes.getScale(key, scale));
-		var chord = notes.getChord(notes.getScale(key, scale));
-		this.colorFrets(chord, extra);	
+		this.colorFrets();	
 	};
 
 	//Show Chords on Fretboard
-	this.colorFrets=function(chord, extra){
-
-		if(extra==='seventh'){
-			extra=['seventh',currentScale[6]];
-		}
-		if(extra==='ninth'){
-			extra=['ninth',currentScale[1]];
-		}
-
-		console.log(extra);
+	this.colorFrets=function(){
 
 		var frets = $('#fretboard li');
 		
@@ -179,31 +164,31 @@ var extra;
 			currentFret.removeAttribute('class');
 
 			var fret = frets[i].innerHTML;
-
-			if(fret===chord[0]){
+			//main triad
+			if(fret===currentScale[0]){
 				currentFret.setAttribute('class','first');
 			}
-			if(fret===chord[1]){
+			if(fret===currentScale[1]){
+				currentFret.setAttribute('class','second');
+			}
+			if(fret===currentScale[2]){
 				currentFret.setAttribute('class','third');
 			}
-			if(fret===chord[2]){
+			if(fret===currentScale[3]){
+				currentFret.setAttribute('class','fourth');
+			}
+			if(fret===currentScale[4]){
 				currentFret.setAttribute('class','fifth');
 			}
-			if(extra!==undefined){
-				if(extra[0]==='seventh' && fret===extra[1]){
-					currentFret.setAttribute('class','seventh');
-					console.log('seventh');
-
-				}
-				if(extra[0]==='ninth' && fret===extra[1]){
-					currentFret.setAttribute('class','second');
-					console.log('ninth');
-				}
+			if(fret===currentScale[5]){
+				currentFret.setAttribute('class','sixth');
+			}
+			if(fret===currentScale[6]){
+				currentFret.setAttribute('class','seventh');
 			}
 		}
 
 		$('.checkbox').show(200);
-		currentTriad = [chord[0],chord[1],chord[2]];
 	};
 
 }
@@ -215,33 +200,11 @@ $('#buttons button').click(function(){
 });
 
 
-$('#buttons input').change(function(){	
-	if($(this).prop('checked')){
-		switch($(this).attr('id')){
-		case 'seventh':
-		buttons.colorFrets(currentTriad, $(this).attr('id'));
-		break;
-		case 'ninth':
-		buttons.colorFrets(currentTriad, $(this).attr('id'));
-		break;
-		}
-	}
-	if(!$(this).prop('checked')){
-		buttons.colorFrets(currentTriad);
-	}
-});
-
-
 $('#fretboard input').change(function(){
 
 	var este = $(this);
 	var string = este.attr('id').split('-')[0];
 	var key = este.val().toUpperCase();
-
-
-	if(notesArray.indexOf(este.val())<0){
-		console.log('you stupid');
-	}
 
 	fretboard.populateFrets(string, key);
 
