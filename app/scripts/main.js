@@ -63,31 +63,13 @@ function Notes(){
 	},
 
 
-	this.getChord = function (key,color){
+	this.getChord = function (key){
 		var triad=[1,3,5];
 		var chord=[];
 		for(var i=0;i<triad.length;i++){
 			chord.push(key[triad[i]-1]);
 		}
-
-		switch(color){
-			case '7th':	
-			chord.push(key[6]);
-			break;
-
-			case '4th':
-			chord.push(key[3]);
-			break;
-
-			case '9th':
-			chord.push(key[1]);
-			break;
-
-			default:
-			return chord;
-
-		}
-
+		
 		return chord;
 	};
 
@@ -151,26 +133,6 @@ function Fretboard(currentChord){
 }
 
 
-//Events
-//Retuning
-$('#fretboard input').change(function(){
-
-	var este = $(this);
-	var string = este.attr('id').split('-')[0];
-	var key = este.val();
-
-
-	if(notesArray.indexOf(este.val())<0){
-		console.log('you stupid');
-	}
-
-	fretboard.populateFrets(string, key);
-
-	if(currentChord.length===2){
-		buttons.showChord(currentChord[0],currentChord[1]);
-	}	
-
-});
 
 
 
@@ -199,6 +161,16 @@ var extra;
 
 	//Show Chords on Fretboard
 	this.colorFrets=function(chord, extra){
+
+		if(extra==='seventh'){
+			extra=['seventh',currentScale[6]];
+		}
+		if(extra==='ninth'){
+			extra=['ninth',currentScale[1]];
+		}
+
+		console.log(extra);
+
 		var frets = $('#fretboard li');
 		
 		for(var i=0;i<frets.length;i++){
@@ -217,34 +189,25 @@ var extra;
 			if(fret===chord[2]){
 				currentFret.setAttribute('class','fifth');
 			}
-		}
+			if(extra!==undefined){
+				if(extra[0]==='seventh' && fret===extra[1]){
+					currentFret.setAttribute('class','seventh');
+					console.log('seventh');
 
-		if(extra !== undefined){
-			showExtensions(extra);
+				}
+				if(extra[0]==='ninth' && fret===extra[1]){
+					currentFret.setAttribute('class','second');
+					console.log('ninth');
+				}
+			}
 		}
-
 
 		$('.checkbox').show(200);
 		currentTriad = [chord[0],chord[1],chord[2]];
 	};
 
-	function showExtensions(extra){
-		switch(extra){
-			case 'seventh':
-			console.log(currentScale[6]);
-			break;			
-
-			case 'ninth':
-			console.log(currentScale[1]);
-			break;
-
-			default://do nothing
-
-		}
-	}
-
 }
-
+//EVENTS
 $('#buttons button').click(function(){
 	var key = $(this).attr('id').split(' ')[0];
 	var scale = $(this).attr('id').split(' ')[1];
@@ -263,6 +226,29 @@ $('#buttons input').change(function(){
 		break;
 		}
 	}
+	if(!$(this).prop('checked')){
+		buttons.colorFrets(currentTriad);
+	}
+});
+
+
+$('#fretboard input').change(function(){
+
+	var este = $(this);
+	var string = este.attr('id').split('-')[0];
+	var key = este.val().toUpperCase();
+
+
+	if(notesArray.indexOf(este.val())<0){
+		console.log('you stupid');
+	}
+
+	fretboard.populateFrets(string, key);
+
+	if(currentChord.length===2){
+		buttons.showChord(currentChord[0],currentChord[1]);
+	}	
+
 });
 
 
