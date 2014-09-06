@@ -5,22 +5,20 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/font
 // endbower
 
 /// variables
-$first: #aaffaa;
+$first: rgba(100,255,100, 0.5);
 $second: #ff0FBF;
-$third: #ffffaa;
+$third: rgba(255,100,100,0.5);
 $fourth: #F5aa9A;
-$fifth: #aaffdd;
+$fifth: rgba(100,100,255,0.5);
 $sixth: #ffbcaa;
 $seventh: #aaaaff;
-
-
 
 .container{
     width:1000px;
 }
 
 .fretboard{
-	background:#E5E5E0;
+	background:#EaEaEa;
 	margin:20px auto;
 	height:270px;
 	 ul{

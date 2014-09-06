@@ -2,17 +2,15 @@
 'use strict';
 
 var notesArray = ['A','A#','B','C','C#','D','D#','E','F','F#','G','G#'];
+var fretboard = new Fretboard();
 var notes = new Notes();
 var buttons = new Buttons();
-
-var fretboard;
 var currentChord =[];
 var currentScale = [];
 
 
 function Notes(){
 	
-
 	$(function(){
 		var standard = ['e','B','G','D','A','E'];
 
@@ -71,8 +69,7 @@ function Notes(){
 		return chord;
 	};
 
-	fretboard = new Fretboard();
-	fretboard.addTuningNotes();
+  	fretboard.addTuningNotes();
 	return this;
 }
 
@@ -80,7 +77,6 @@ function Notes(){
 
 
 function Fretboard(){
-
 
 	this.populateFrets = function(string,key){
 		
@@ -126,25 +122,6 @@ function Fretboard(){
 			 $('.fretboard ul select').append('<option value="'+ notesArray[i] + '">' + notesArray[i] + '</option>');
 		}
 	};	
-}
-
-
-
-
-
-function Buttons(){
-
-	this.showButtons = function(){
-	//major chords
-		for(var i=0;i<notesArray.length;i++){
-			$('#major').append('<button class="btn major btn-default" id="'+notesArray[i]+' major">'+notesArray[i]+'</button>');
-		} 
-		for(var i=0;i<notesArray.length;i++){
-			$('#minor').append('<button class="btn minor btn-default" id="'+notesArray[i]+' minor">'+notesArray[i]+'m</button>');
-		} 
-	};
-	this.showButtons();
-
 
 	this.showChord=function(key, scale){
 		
@@ -191,12 +168,32 @@ function Buttons(){
 		$('.checkbox').show(200);
 	};
 
+	this.showExtensions = function(extension){
+		$('.'+extension).css({'background-color':'red'});
+	}
 }
+
+
+function Buttons(){
+
+	this.showButtons = function(){
+	//major chords
+		for(var i=0;i<notesArray.length;i++){
+			$('#major').append('<button class="btn major btn-default" id="'+notesArray[i]+' major">'+notesArray[i]+'</button>');
+		} 
+		for(var i=0;i<notesArray.length;i++){
+			$('#minor').append('<button class="btn minor btn-default" id="'+notesArray[i]+' minor">'+notesArray[i]+'m</button>');
+		} 
+	};
+	this.showButtons();
+}
+
+
 //EVENTS
 $('#buttons button').click(function(){
 	var key = $(this).attr('id').split(' ')[0];
 	var scale = $(this).attr('id').split(' ')[1];
-	buttons.showChord(key, scale);
+	fretboard.showChord(key, scale);
 });
 
 
@@ -209,9 +206,22 @@ $('#fretboard input').change(function(){
 	fretboard.populateFrets(string, key);
 
 	if(currentChord.length===2){
-		buttons.showChord(currentChord[0],currentChord[1]);
+		fretboard.showChord(currentChord[0],currentChord[1]);
 	}	
+});
 
+
+$('.checkbox input').change(function(){
+
+	if($(this).prop('checked')===true){
+		console.log('checked');
+		$('.'+$(this).attr('id')).css({'background-color':'white'});
+	}
+
+	if($(this).prop('checked')===false){
+		console.log('unchecked');
+		$('.'+$(this).attr('id')).css({'background-color':'inherit'});
+	}
 });
 
 
