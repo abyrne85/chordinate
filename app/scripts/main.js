@@ -8,7 +8,6 @@ var buttons = new Buttons();
 var currentChord =[];
 var currentScale = [];
 
-
 function Notes(){
 	
 	$(function(){
@@ -73,9 +72,8 @@ function Notes(){
 	return this;
 }
 
-
 function Fretboard(){
-
+var extensions=[];
 
 	this.populateFrets = function(string,key){
 		
@@ -121,6 +119,18 @@ function Fretboard(){
 			 $('.fretboard ul select').append('<option value="'+ notesArray[i] + '">' + notesArray[i] + '</option>');
 		}
 	};	
+	$('#fretboard input').change(function(){
+		var este = $(this);
+		var string = este.attr('id').split('-')[0];
+		var key = este.val().toUpperCase();
+
+		fretboard.populateFrets(string, key);
+
+		if(currentChord.length===2){
+			fretboard.showChord(currentChord[0],currentChord[1]);
+		}	
+	});
+
 
 	this.showChord=function(key, scale){
 		
@@ -169,15 +179,31 @@ function Fretboard(){
 		}
 
 		$('.checkbox').show(200);
+		this.retainExtensions();
 	};
 
 	this.checkExtensions = function(evt){
 		if(evt.prop('checked')===true){
 			$('.'+evt.attr('id')).addClass(evt.attr('id')+'-colored');
+			extensions.push(evt.attr('id'));
 		}
 
 		if(evt.prop('checked')===false){
 			$('.'+evt.attr('id')).removeClass(evt.attr('id')+'-colored');
+
+			if (extensions.indexOf(evt.attr('id')) > -1) {
+			    extensions.splice(extensions.indexOf(evt.attr('id')), 1);
+			}
+
+		}
+		
+	}
+
+	this.retainExtensions = function(){
+		if(extensions.length!=0){
+			for(var i=0;i<extensions.length;i++){
+				$('.'+extensions[i]).addClass(extensions[i]+'-colored');
+			}
 		}
 	}
 }
@@ -194,36 +220,30 @@ function Buttons(){
 		} 
 	};
 	this.showButtons();
+
+
+	$('.checkbox input').change(function(){
+		fretboard.checkExtensions($(this));
+	});
+
+	//EVENTS
+	$('#buttons .btn').click(function(){
+		var key = $(this).attr('id').split(' ')[0];
+		var scale = $(this).attr('id').split(' ')[1];
+		fretboard.showChord(key, scale)
+		fretboard.retainExtensions();
+		//$(".checkbox input").attr('checked', false);
+
+	});
+
 }
 
 
 
-//EVENTS
-$('#buttons .btn').click(function(){
-	var key = $(this).attr('id').split(' ')[0];
-	var scale = $(this).attr('id').split(' ')[1];
-	fretboard.showChord(key, scale);
-	$(".checkbox input").attr('checked', false);
-});
 
 
-$('#fretboard input').change(function(){
-
-	var este = $(this);
-	var string = este.attr('id').split('-')[0];
-	var key = este.val().toUpperCase();
-
-	fretboard.populateFrets(string, key);
-
-	if(currentChord.length===2){
-		fretboard.showChord(currentChord[0],currentChord[1]);
-	}	
-});
 
 
-$('.checkbox input').change(function(){
-	fretboard.checkExtensions($(this));
-});
 
 
 
