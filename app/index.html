@@ -27,12 +27,11 @@
 
         <div class="container">
             <div class="header">
-                <h3 class="text-muted">chordinate</h3>
+                <h3 id ='chordName' class="text-muted">chordinate</h3>
             </div>
-
+            
             <div id='fretboard' class="row fretboard">
 
-                  
                 <input type="text"  id="e-string" placeholder="E">
                 <ul class="e-string"></ul>
                 <input type="text"  id="B-string" placeholder="B">
@@ -47,27 +46,34 @@
                 <ul class="E-string"></ul>
 
             </div>
-
             <div id='buttons' class="row buttons">
+            <span id='hide' class="glyphicon glyphicon-minus"></span>
+            <span id='show' class="glyphicon glyphicon-plus"></span>
+
                 <div id="major"></div>
                 <div id="minor"></div>
                 <div class="checkbox">
-                  <label>
-                    <input id='sixth' type="checkbox" value="">
-                    Show 6th
-                  </label>
-                  <label>
-                    <input id='seventh' type="checkbox" value="">
-                    Show 7th
-                  </label>
-                  <label>
-                    <input id='second' type="checkbox" value="">
-                    Show 9th
-                  </label>
-             
+                    <label>
+                        <input id='sixth' type="checkbox" value="">
+                        Add 6th
+                    </label>
+                    <label>
+                        <input id='seventh' type="checkbox" value="">
+                        Add 7th
+                    </label>
+                    <label>
+                        <input id='second' type="checkbox" value="">
+                        Add 9th
+                    </label>
+                    <label>
+                        <input id='fourth' type="checkbox" value="">
+                        Add 11th
+                    </label>
                 </div>
+                <button id='toTimeline' type="button" class="btn btn-success to-timeline">Add to Timeline</button>
             </div>
 
+        <div class="row timeline"></div>
 
 
 

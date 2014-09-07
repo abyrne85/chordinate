@@ -5,13 +5,13 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/font
 // endbower
 
 /// variables
-$first: rgba(100,255,100, 0.5);
-$second: #ff0FBF;
-$third: rgba(255,100,100,0.5);
-$fourth: #F5aa9A;
-$fifth: rgba(100,100,255,0.5);
-$sixth: #ffbcaa;
-$seventh: rgba(50,200, 150, 0.5);
+$first: #ff8888;
+$second: rgba(25,25,100,0.5);
+$third: #88ff88;
+$fourth: rgba(75,190,130, 0.5);
+$fifth: #8888ff;
+$sixth: rgba(220,180,140, 0.5);
+$seventh: #a9a18E;
 
 .container{
     width:1000px;
@@ -42,6 +42,11 @@ $seventh: rgba(50,200, 150, 0.5);
 		width:30px;
 		text-transform: uppercase;
 		
+	}
+	span{
+		font-size:10px;
+		position:absolute;
+		margin-left:-15px;
 	}
 	/* Intervals */
 	.first{
@@ -89,20 +94,34 @@ $seventh: rgba(50,200, 150, 0.5);
 
 }
 
-.buttons {
+#buttons {
 	margin:20px auto;
-	.checkbox{
+	.glyphicon{
+		margin-left:-20px;
+		cursor:pointer;
+	}
+
+	.glyphicon-minus{
+		display:block;
+	}
+	.glyphicon-plus{
 		display:none;
+	}
+
+	.checkbox{
 	}
 	.btn{
 		width:70px;
 		height:50px;
 		margin:5px 5px;	
 		font-size: 20px;
-
 	}
 	label{
 		margin-right:20px;
+	}
+	.to-timeline{
+		font-size:14px;
+		width:120px;
 	}
 }
 

@@ -5,6 +5,7 @@ var notesArray = ['A','A#','B','C','C#','D','D#','E','F','F#','G','G#'];
 var fretboard = new Fretboard();
 var notes = new Notes();
 var buttons = new Buttons();
+var timeline = new Timeline();
 var currentChord =[];
 var currentScale = [];
 
@@ -110,7 +111,6 @@ var extensions=[];
 		for(var i=0;i<this.frets.length;i++){
 			currentString.append('<li>'+this.frets[i]+'</li>');
 		}
-		//addTuningNotes();
 	};
 
 	//Tuning Strings
@@ -133,17 +133,19 @@ var extensions=[];
 
 
 	this.showChord=function(key, scale){
-		
+		$('#chordName').empty();
 		currentChord=[key, scale];
 		notes.getChord(notes.getScale(key, scale));
 		this.colorFrets();	
+		$('#chordName').append(key + ' ' + scale);
+
 	};
 
 	//Show Chords on Fretboard
 	this.colorFrets=function(){
-
+   
 		var frets = $('#fretboard li');
-		
+		this.removeIntervals();	
 		for(var i=0;i<frets.length;i++){
 
 			var currentFret = frets[i];
@@ -175,11 +177,9 @@ var extensions=[];
 			if(currentScale.indexOf(fret)< 0){
 				currentFret.setAttribute('class','faded');
 			}
-
 		}
-
-		$('.checkbox').show(200);
 		this.retainExtensions();
+		this.showIntervals();
 	};
 
 	this.checkExtensions = function(evt){
@@ -194,10 +194,8 @@ var extensions=[];
 			if (extensions.indexOf(evt.attr('id')) > -1) {
 			    extensions.splice(extensions.indexOf(evt.attr('id')), 1);
 			}
-
-		}
-		
-	}
+		}	
+	};
 
 	this.retainExtensions = function(){
 		if(extensions.length!=0){
@@ -205,18 +203,32 @@ var extensions=[];
 				$('.'+extensions[i]).addClass(extensions[i]+'-colored');
 			}
 		}
+	};
+
+	this.showIntervals=function(){
+		$('.first').prepend('<span>I</span>');
+		$('.second').prepend('<span>II</span>');
+		$('.third').prepend('<span>III</span>');
+		$('.fourth').prepend('<span>IV</span>');
+		$('.fifth').prepend('<span>V</span>');
+		$('.sixth').prepend('<span>VI</span>');
+		$('.seventh').prepend('<span>VII</span>');
+
+	};
+	this.removeIntervals=function(){
+		$('#fretboard span').remove();	
 	}
 }
 
-function Buttons(){
 
+function Buttons(){
+var key, scale;
 	this.showButtons = function(){
-	//major chords
 		for(var i=0;i<notesArray.length;i++){
-			$('#major').append('<button class="btn major btn-default ui-widget-content draggable" id="'+notesArray[i]+' major">'+notesArray[i]+'</button>');
+			$('#major').append('<button class="btn major btn-default ui-widget-content" id="'+notesArray[i]+' major">'+notesArray[i]+'</button>');
 		} 
 		for(var i=0;i<notesArray.length;i++){
-			$('#minor').append('<button class="btn minor btn-default ui-widget-content draggable" id="'+notesArray[i]+' minor">'+notesArray[i]+'m</button>');
+			$('#minor').append('<button class="btn minor btn-default ui-widget-content" id="'+notesArray[i]+' minor">'+notesArray[i]+'m</button>');
 		} 
 	};
 	this.showButtons();
@@ -226,16 +238,39 @@ function Buttons(){
 		fretboard.checkExtensions($(this));
 	});
 
-	//EVENTS
-	$('#buttons .btn').click(function(){
-		var key = $(this).attr('id').split(' ')[0];
-		var scale = $(this).attr('id').split(' ')[1];
+	$('#buttons .btn-default').click(function(){
+
+		$('.to-timeline').prop('disabled',false);
+		key = $(this).attr('id').split(' ')[0];
+		scale = $(this).attr('id').split(' ')[1];
 		fretboard.showChord(key, scale)
 		fretboard.retainExtensions();
-		//$(".checkbox input").attr('checked', false);
 
 	});
 
+	$('.to-timeline').click(function(){
+		timeline.newChord(key, scale);
+		$(this).prop('disabled',true);
+	});
+
+	$('.glyphicon-minus').click(function(){
+		$('.checkbox, .to-timeline,#major,#minor').hide(200);
+		$('.glyphicon-minus').hide();
+		$('.glyphicon-plus').show(200);
+
+	});
+	$('.glyphicon-plus').click(function(){
+		$('.checkbox, .to-timeline,#major,#minor').show(200);
+		$('.glyphicon-plus').hide();
+		$('.glyphicon-minus').show(200);
+	});
+
+}
+
+function Timeline(){
+	this.newChord=function(key, scale){
+		$('.timeline').append('<div class="btn">'+key+' '+scale+'</div>');
+	}
 }
 
 
