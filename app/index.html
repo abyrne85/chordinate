@@ -2,7 +2,7 @@
 <html class="no-js">
     <head>
         <meta charset="utf-8">
-        <title>progressr</title>
+        <title>chordinate</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -27,7 +27,7 @@
 
         <div class="container">
             <div class="header">
-                <h3 class="text-muted">progressr</h3>
+                <h3 class="text-muted">chordinate</h3>
             </div>
 
             <div id='fretboard' class="row fretboard">
@@ -53,6 +53,10 @@
                 <div id="minor"></div>
                 <div class="checkbox">
                   <label>
+                    <input id='sixth' type="checkbox" value="">
+                    Show 6th
+                  </label>
+                  <label>
                     <input id='seventh' type="checkbox" value="">
                     Show 7th
                   </label>
@@ -61,15 +65,10 @@
                     Show 9th
                   </label>
                 </div>
-
-            <div class="row">
-                <h3>Timeline</h3>
             </div>
 
 
 
-
-        </div>
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>
@@ -87,24 +86,9 @@
         <!-- endbower -->
         <!-- endbuild -->
 
-        <!-- build:js scripts/plugins.js -->
-        <!--
-        <script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/affix.js"></script>
-        <script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/alert.js"></script>
-        <script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/dropdown.js"></script>
-        <script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/tooltip.js"></script>
-        <script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/modal.js"></script>
-        <script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/transition.js"></script>
-        <script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/button.js"></script>
-        <script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/popover.js"></script>
-        <script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/carousel.js"></script>
-        <script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/scrollspy.js"></script>
-        <script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/collapse.js"></script>
-        <script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/tab.js"></script>
-        -->
-        <!-- endbuild -->
 
         <!-- build:js scripts/main.js -->
+        <script src='scripts/jquery-ui.min.js'></script>
         <script src="scripts/main.js"></script>
         <!-- endbuild -->
 </body>

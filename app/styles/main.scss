@@ -11,7 +11,7 @@ $third: rgba(255,100,100,0.5);
 $fourth: #F5aa9A;
 $fifth: rgba(100,100,255,0.5);
 $sixth: #ffbcaa;
-$seventh: #aaaaff;
+$seventh: rgba(50,200, 150, 0.5);
 
 .container{
     width:1000px;
@@ -33,6 +33,7 @@ $seventh: #aaaaff;
 		list-style: none;
 		width:30px;
 		border-bottom:1px solid grey;
+		font-size: 14px;
 
 	}
 	input{
@@ -45,26 +46,47 @@ $seventh: #aaaaff;
 	/* Intervals */
 	.first{
 		background-color: $first;
+		font-weight: bold;
+		font-size:16px;
 	}
 	.second{
-		/*background-color: $second;*/
+		
+	}
+	.second-colored{
+			background-color: #ff0FBF;
 	}
 	.third{
 		background-color: $third;
+		font-weight: bold;
+
 	}
 	.fourth{
-		/*background-color: $fourth;*/
+		
+	}
+	.fourth-colored{
+		background-color: $fourth
 	}
 	.fifth{
 		background-color: $fifth;
+		font-weight: bold;
 	}
 	.sixth{
-		/*background-color: $sixth;*/
+		
+	}
+	.sixth-colored{
+		background-color: $sixth;
 	}
 	.seventh{
-		/*background-color: $seventh;*/
-
+		
 	}
+	.seventh-colored{
+		background-color: $seventh;
+	}
+	.faded{
+		opacity:0.3;
+		font-size: 12px;
+	}
+
 }
 
 .buttons {
@@ -72,7 +94,7 @@ $seventh: #aaaaff;
 	.checkbox{
 		display:none;
 	}
-	button{
+	.btn{
 		width:70px;
 		height:50px;
 		margin:5px 5px;	

@@ -74,9 +74,8 @@ function Notes(){
 }
 
 
-
-
 function Fretboard(){
+
 
 	this.populateFrets = function(string,key){
 		
@@ -163,37 +162,48 @@ function Fretboard(){
 			if(fret===currentScale[6]){
 				currentFret.setAttribute('class','seventh');
 			}
+			if(currentScale.indexOf(fret)< 0){
+				currentFret.setAttribute('class','faded');
+			}
+
 		}
 
 		$('.checkbox').show(200);
 	};
 
-	this.showExtensions = function(extension){
-		$('.'+extension).css({'background-color':'red'});
+	this.checkExtensions = function(evt){
+		if(evt.prop('checked')===true){
+			$('.'+evt.attr('id')).addClass(evt.attr('id')+'-colored');
+		}
+
+		if(evt.prop('checked')===false){
+			$('.'+evt.attr('id')).removeClass(evt.attr('id')+'-colored');
+		}
 	}
 }
-
 
 function Buttons(){
 
 	this.showButtons = function(){
 	//major chords
 		for(var i=0;i<notesArray.length;i++){
-			$('#major').append('<button class="btn major btn-default" id="'+notesArray[i]+' major">'+notesArray[i]+'</button>');
+			$('#major').append('<button class="btn major btn-default ui-widget-content draggable" id="'+notesArray[i]+' major">'+notesArray[i]+'</button>');
 		} 
 		for(var i=0;i<notesArray.length;i++){
-			$('#minor').append('<button class="btn minor btn-default" id="'+notesArray[i]+' minor">'+notesArray[i]+'m</button>');
+			$('#minor').append('<button class="btn minor btn-default ui-widget-content draggable" id="'+notesArray[i]+' minor">'+notesArray[i]+'m</button>');
 		} 
 	};
 	this.showButtons();
 }
 
 
+
 //EVENTS
-$('#buttons button').click(function(){
+$('#buttons .btn').click(function(){
 	var key = $(this).attr('id').split(' ')[0];
 	var scale = $(this).attr('id').split(' ')[1];
 	fretboard.showChord(key, scale);
+	$(".checkbox input").attr('checked', false);
 });
 
 
@@ -212,16 +222,7 @@ $('#fretboard input').change(function(){
 
 
 $('.checkbox input').change(function(){
-
-	if($(this).prop('checked')===true){
-		console.log('checked');
-		$('.'+$(this).attr('id')).css({'background-color':'white'});
-	}
-
-	if($(this).prop('checked')===false){
-		console.log('unchecked');
-		$('.'+$(this).attr('id')).css({'background-color':'inherit'});
-	}
+	fretboard.checkExtensions($(this));
 });
 
 
