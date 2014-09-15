@@ -6,7 +6,7 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/font
 
 /// variables
 $first: #ff8888;
-$second: rgba(25,25,100,0.5);
+$second: #aaf5de;
 $third: #88ff88;
 $fourth: rgba(75,190,130, 0.5);
 $fifth: #8888ff;
@@ -25,7 +25,6 @@ $seventh: #a9a18E;
 		margin-left:-30px;
 		margin-top:5px;
 		padding-bottom:6px;
-
 	}
 	 li{
 		padding:4px 39px;
@@ -97,10 +96,15 @@ $seventh: #a9a18E;
 #buttons {
 	margin:20px auto;
 	.glyphicon{
-		margin-left:-20px;
 		cursor:pointer;
+		border: 1px solid #CDCDCD;
+		padding: 4px;
+		float: left;
+		margin-left: -33px;
+		margin-top: 4px;
+		border-radius: 4px;	
+		font-size: 20px;
 	}
-
 	.glyphicon-minus{
 		display:block;
 	}
@@ -109,6 +113,7 @@ $seventh: #a9a18E;
 	}
 
 	.checkbox{
+		margin-left: 5px;
 	}
 	.btn{
 		width:70px;
@@ -122,6 +127,38 @@ $seventh: #a9a18E;
 	.to-timeline{
 		font-size:14px;
 		width:120px;
+	}
+
+}
+
+.timeline{
+	margin-left:5px;
+	.glyphicon{
+		font-size: 25px;
+		color: #FFF;
+		border: none;
+		border-radius: 5px;
+		width: 40px;
+		height: 35px;
+		margin-bottom: 15px;
+	}
+
+	.glyphicon-play{
+		background-color: #449D44;
+
+	}
+	.glyphicon-pause{
+		display:none;
+		background-color: gold;
+	}
+	.chords{
+		height:50px;
+		border:1px solid #cdcdcd;
+		min-width:60px;
+		padding:12px 20px;
+		float:left;
+		font-size:20px;
+		margin-bottom:10px;
 	}
 }
 

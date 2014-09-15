@@ -47,8 +47,8 @@
 
             </div>
             <div id='buttons' class="row buttons">
-            <span id='hide' class="glyphicon glyphicon-minus"></span>
-            <span id='show' class="glyphicon glyphicon-plus"></span>
+                <span id='hide' class="glyphicon glyphicon-minus"></span>
+                <span id='show' class="glyphicon glyphicon-plus"></span>
 
                 <div id="major"></div>
                 <div id="minor"></div>
@@ -70,12 +70,19 @@
                         Add 11th
                     </label>
                 </div>
-                <button id='toTimeline' type="button" class="btn btn-success to-timeline">Add to Timeline</button>
+
+                <button id='toTimeline' type="button" class="btn btn-success to-timeline" disabled='true'>Add to Timeline</button>
+                
             </div>
 
-        <div class="row timeline"></div>
-
-
+            <div class="row timeline">
+                <div class='timeline-controls'>
+                    <button id="play" class='glyphicon glyphicon-play'></button>
+                    <button id='pause' class='glyphicon glyphicon-pause'></button>
+                </div>
+            </div>
+    
+        </div>
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>
