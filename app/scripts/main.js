@@ -253,7 +253,10 @@ var key, scale;
 
 	$('.glyphicon-minus').click(function(){
 		$('.checkbox, .to-timeline,#major,#minor').hide(200);
-		$('.buttons').css({'margin-bottom':'5px','height':'0px'});
+		setTimeout(function(){		
+			$('.buttons').css({'margin-bottom':'5px','height':'0px'});
+		},200);
+
 		$('.glyphicon-minus').hide();
 		$('.glyphicon-plus').show(200);
 
@@ -286,11 +289,7 @@ function Timeline(){
 		if(scale=='major'){shortenedScale=''};
 		$('.timeline').append('<div class="chords" id="'+key+''+scale+'">'+key+''+shortenedScale+'</div>');
 		timeline.push(key+' '+scale);
-		console.log(timeline);
 	}
-
-
-
 }
 
 
