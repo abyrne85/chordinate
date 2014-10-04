@@ -106,7 +106,7 @@ var extensions=[];
 		currentString.empty();
 
 		for(var i=0;i<this.frets.length;i++){
-			currentString.append('<li>'+this.frets[i]+'</li>');
+			currentString.append('<li class="circle">'+this.frets[i]+'</li>');
 		}
 	};
 
@@ -203,13 +203,13 @@ var extensions=[];
 	};
 
 	this.showIntervals=function(){
-		$('.first').prepend('<span>I</span>');
-		$('.second').prepend('<span>II</span>');
-		$('.third').prepend('<span>III</span>');
-		$('.fourth').prepend('<span>IV</span>');
-		$('.fifth').prepend('<span>V</span>');
-		$('.sixth').prepend('<span>VI</span>');
-		$('.seventh').prepend('<span>VII</span>');
+		// $('.first').prepend('<p class="interval">I</p>');
+		// $('.second').prepend('<p class="interval">II</p>');
+		// $('.third').prepend('<p class="interval">III</p>');
+		// $('.fourth').prepend('<p class="interval">IV</p>');
+		// $('.fifth').prepend('<p class="interval">V</p>');
+		// $('.sixth').prepend('<p class="interval">VI</p>');
+		// $('.seventh').prepend('<p class="interval">VII</p>');
 
 	};
 	this.removeIntervals=function(){

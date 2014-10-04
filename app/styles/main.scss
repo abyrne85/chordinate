@@ -27,14 +27,18 @@ $seventh: #a9a18E;
 		padding-bottom:6px;
 	}
 	 li{
-		padding:4px 39px;
 		display:inline-block;
 		list-style: none;
-		width:30px;
-		border-bottom:1px solid grey;
-		font-size: 14px;
-
+		margin-right: 40px;
+		width:40px;
+		height:30px;
+		border-radius:50%;
+		font-size:20px;
+		color:#fff;
+		text-align:center;
+		background:#555;
 	}
+
 	input{
 		float:left;
 		margin-left:-30px;
@@ -42,16 +46,16 @@ $seventh: #a9a18E;
 		text-transform: uppercase;
 		
 	}
-	span{
-		font-size:10px;
-		position:absolute;
-		margin-left:-15px;
+	
+	.note{
+		margin-top:0px;
+	}
+	.interval{
+		margin-top: -15px;
 	}
 	/* Intervals */
 	.first{
 		background-color: $first;
-		font-weight: bold;
-		font-size:16px;
 	}
 	.second{
 		
@@ -61,7 +65,6 @@ $seventh: #a9a18E;
 	}
 	.third{
 		background-color: $third;
-		font-weight: bold;
 
 	}
 	.fourth{
@@ -72,7 +75,6 @@ $seventh: #a9a18E;
 	}
 	.fifth{
 		background-color: $fifth;
-		font-weight: bold;
 	}
 	.sixth{
 		
@@ -87,8 +89,8 @@ $seventh: #a9a18E;
 		background-color: $seventh;
 	}
 	.faded{
-		opacity:0.3;
-		font-size: 12px;
+		opacity:0.2;
+		color:#333;
 	}
 
 }
